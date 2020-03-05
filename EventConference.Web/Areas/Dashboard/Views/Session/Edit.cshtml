@@ -1,0 +1,105 @@
+﻿@model EventConference.Web.Models.Session.EditSessionViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+ <h1 class="mt-4">@ViewData["Title"] @Model.Title</h1>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <p class="caption mb-0">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <div class="row">
+                                    <div class="form-group col-sm-12 col-md-3">
+                                        <label asp-for="DayNumber" class="control-label"></label>
+                                        <input asp-for="DayNumber" class="form-control" min="1" />
+                                        <span asp-validation-for="DayNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-9">
+                                        <label asp-for="Title" class="control-label"></label>
+                                        <input asp-for="Title" class="form-control" />
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label asp-for="Abstract" class="control-label"></label>
+                                        @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", @cols = "20", @rows = "5" })
+                                        <span asp-validation-for="Abstract" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12 col-md-4">
+                                        <label asp-for="Date" class="control-label"></label>
+                                        <input asp-for="Date" type="text" class="form-control datepicker" />
+                                        <span asp-validation-for="Date" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-4">
+                                        <label asp-for="StartTime" class="control-label"></label>
+                                        <input asp-for="StartTime" class="form-control timepicker" />
+                                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-4">
+                                        <label asp-for="EndTime" class="control-label"></label>
+                                        <input asp-for="EndTime" class="form-control timepicker" />
+                                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label asp-for="SpeakerId" class="control-label"></label>
+                                        <select asp-for="SpeakerId" class="form-control">
+                                            <option value="-1" disabled selected>Select speaker</option>
+                                            @foreach (var speaker in ViewBag.Speakers)
+                                            {
+                                                if (Model.SpeakerId != null && (speaker.Id == Model.SpeakerId))
+                                                {
+                                                    <option value="@speaker.Id" selected>@speaker.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@speaker.Id">@speaker.Name</option>
+                                                }
+
+                                            }
+                                        </select>
+                                        <span asp-validation-for="@Model.SpeakerId" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <a asp-action="Index" class="float-left">Back to List</a>
+                                    <input type="submit" value="Update" class="btn btn-primary float-right" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{ 
+
+<script>
+    $(document).ready(function () {
+        $("#StartTime").timepicker({ uiLibrary: 'bootstrap4'});
+        $("#EndTime").timepicker({ uiLibrary: 'bootstrap4'});
+        $('#Date').datepicker({ uiLibrary: 'bootstrap4' });
+    });
+</script>
+}

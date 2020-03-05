@@ -1,0 +1,81 @@
+﻿@model IEnumerable<EventConference.Web.Models.Event.EventViewModel>
+@{
+    ViewData["Title"] = "Events";
+    var selected = "";
+}
+
+@section css{ 
+    <style>
+        tr.selected{
+            background-color:#ccc;
+        }
+    </style>
+}
+
+<h1 class="mt-4">@ViewData["Title"]</h1>
+
+<div class="section section-data-tables">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Venue</th>
+                                        <th>Active</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (item.Active)
+                                        {
+                                            selected = "selected";
+                                        }
+                                        <tr class="@selected">
+                                            <td>@Html.Raw(item.Title)</td>
+                                            <td>@Html.Raw(item.Venue)</td>
+                                            <td>
+                                                @if (item.Active)
+                                                {
+                                                    <span>Active</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
+                                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info"><span class="fa fa-eye"></span></a>
+                                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-primary" asp-action="Create"><span class="fa fa-plus"></span></a>
+</div>
+
+
+<div id="modal-event" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>

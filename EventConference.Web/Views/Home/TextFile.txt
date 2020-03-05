@@ -1,0 +1,301 @@
+﻿@using EventConference.Web.Models
+@{
+    ViewData["Title"] = "Home Page";
+    var speakers = ViewData["speakers"];
+}
+
+
+<div id="intro">
+    <div class="row valign-wrapper no-valign-wrapper-on-mobile">
+        <div class="col l12 valign">
+            <div class="container-wide intro-text">
+                <h1>@Html.Raw(Model.Settings["title"])</h1>
+                <p>@Html.Raw(Model.Settings["subtitle"])</p>
+                <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4 vbox-item" data-vbtype="video" data-autoplay="true"></a>
+                <a href="#about" class="about-btn hoverable z-depth-5">About The Event</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="about" class="z-depth-2">
+    <div class="container-wide">
+        <div class="row">
+            <div class="about-content-left col l8">
+                <h2>About The Event</h2>
+                <p>@Html.Raw(Model.Settings["about_description"])</p>
+            </div>
+            <div class="about-content-right col l4 no-right-padding valign">
+                <h3>Where</h3>
+                <p>@Html.Raw(Model.Settings["about_where"])</p>
+
+                <h3>When</h3>
+                <p>@Html.Raw(Model.Settings["about_when"])</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="speakers" class="wow fadeInUp">
+    <div class="container">
+        <div class="section-header">
+            <h2>Event Speakers</h2>
+            <p>Here are some of our speakers</p>
+        </div>
+
+        <div class="row">
+            @foreach (var speaker in Model.Speakers)
+            {
+                <div class="col l4 m6 wow bounceInUp" data-wow-duration="1.4s">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            @if (speaker.Avatar == null)
+                            {
+                                <img class="activator" src="~/img/goku.png">
+                            }
+                            else
+                            {
+                                <img class="activator" src="@speaker.Avatar">
+                            }
+
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">@speaker.Name</span>
+                            <div class="social">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">@speaker.Name<i class="material-icons right">close</i></span>
+                            <p>@speaker.FullDescription</p>
+                            <div class="actions">
+                                <div class="social left">
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                </div>
+                                <div class="right">
+                                    <a href="#" class="hoverable"><i class="fa fa-list-alt"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</section>
+
+<section id="schedule" class="section-with-bg">
+    <div class="container wow fadeInUp">
+        <div class="section-header">
+            <h2>Event Schedule</h2>
+            <p>Here is our event schedule</p>
+        </div>
+
+        <ul id="tabs-swipe-demo" class="tabs">
+            @foreach (var item in Model.SchedulesDays)
+            {
+                var link = $"#day{item.DayNumber}";
+                if (item.DayNumber == 1)
+                {
+                    <li class="tab col s3"><a href="@link" class="active">Day @item.DayNumber</a></li>
+                }
+                else
+                {
+                    <li class="tab col s3"><a href="@link">Day @item.DayNumber</a></li>
+                }
+
+            }
+        </ul>
+
+
+        <h3 class="sub-heading">
+            Voluptatem nulla veniam soluta et corrupti consequatur neque eveniet officia. Eius
+            necessitatibus voluptatem quis labore perspiciatis quia.
+        </h3>
+
+        <div class="row">
+            @foreach (var item in Model.SchedulesDays)
+            {
+                var id = $"#day{item.DayNumber}";
+                <div id="@id" class="col s12">
+                    @foreach (var schedule in item.Schedules)
+                    {
+                        <div class="row schedule-item zoom wow slideInRight">
+                            <div class="col m2"><time> @string.Format("{0:hh:mm tt}", schedule.StartTime)</time></div>
+                            <div class="col m10">
+                                <h4>@schedule.Title </h4>
+                                <p>@schedule.SubTitle</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        
+
+        @*<div id="day1" class="col s12">
+            <div class="row schedule-item zoom wow slideInRight">
+                <div class="col m2"><time>09:30 AM</time></div>
+                <div class="col m10">
+                    <h4>Registration </h4>
+                    <p>Fugit voluptas iusto maiores temporibus autem numquam magnam.</p>
+                </div>
+            </div>
+
+        </div>
+        <div id="day2" class="col s12">
+            <div class="row schedule-item zoom wow slideInRight">
+                <div class="col m2"><time>10:00 AM</time></div>
+                <div class="col m10">
+                    <div class="speaker">
+                        <img src="~/img/goku.png" class="responsive-img img-circle" alt="Brenden Legros">
+                    </div>
+                    <h4>Libero corrupti explicabo itaque. <span>Brenden Legros</span></h4>
+                    <p>Facere provident incidunt quos voluptas.</p>
+                </div>
+            </div>
+
+        </div>
+        <div id="day3" class="col s12">
+            <div class="row schedule-item zoom wow slideInRight">
+                <div class="col m2"><time>10:00 AM</time></div>
+                <div class="col m10">
+                    <div class="speaker">
+                        <img src="~/img/goku.png" class="responsive-img img-circle" alt="Hubert Hirthe">
+                    </div>
+                    <h4>Et voluptatem iusto dicta nobis. <span>Hubert Hirthe</span></h4>
+                    <p>Maiores dignissimos neque qui cum accusantium ut sit sint inventore.</p>
+                </div>
+            </div>
+
+        </div>*@
+    </div>
+</section>
+
+
+<section id="venue" class="wow fadeInUp">
+    <div class="container-wide">
+        <div class="section-header">
+            <h2>Event Venue</h2>
+            <p>Event venue location info and gallery</p>
+        </div>
+    </div>
+    @foreach (var venue in Model.Venues)
+    {
+        <div class="row">
+            <div class="col l6 venue-map">
+                <iframe src="https://maps.google.com/maps?q=@venue.Latitude,@venue.Longitude&hl=en&z=14&amp;output=embed" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="col l6 venue-info">
+                <div class="row">
+                    <div class="col l8">
+                        <h3>@venue.Name</h3>
+                        <p>@venue.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+</section>
+
+
+<section id="gallery" class="wow fadeInUp">
+    <div class="container">
+        <div class="section-header">
+            <h2>Gallery</h2>
+            <p>Check our gallery from the recent events</p>
+        </div>
+    </div>
+</section>
+
+<section id="supporters" class="section-with-bg wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+
+    <div class="container">
+        <div class="section-header">
+            <h2>Sponsors</h2>
+        </div>
+
+        <div class="row no-gutters supporters-wrap clearfix">
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/26/1.png" class="img-fluid" alt="Strider">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/27/2.png" class="img-fluid" alt="Runtastic">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/28/3.png" class="img-fluid" alt="EditShare">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/29/4.png" class="img-fluid" alt="InFocus">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/30/5.png" class="img-fluid" alt="gategroup">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/31/6.png" class="img-fluid" alt="Cadent">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/32/7.png" class="img-fluid" alt="Ceph">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="supporter-logo">
+                    <img src="/storage/33/8.png" class="img-fluid" alt="Alitalia">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="faq" class="wow fadeInUp">
+
+    <div class="container">
+
+        <div class="section-header">
+            <h2>F.A.Q </h2>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <ul class="collapsible popout">
+                    @foreach (var faq in Model.Faqs)
+                    {
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">add_circle</i>@faq.Question</div>
+                            <div class="collapsible-body"><span>@faq.Answer</span></div>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</section>

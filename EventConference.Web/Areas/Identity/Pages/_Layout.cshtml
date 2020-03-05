@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Event</title>
+    <link href="~/css/admin.css" rel="stylesheet" />
+    <link href="~/css/mdb.min.css" rel="stylesheet" />
+</head>
+<body class="bg-primary">
+
+
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                @RenderBody()
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright © Event @DateTime.Now.Year</div>
+                        <div>
+                            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                            ·
+                            <a asp-area="" asp-controller="Home" asp-action="TermOfService">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+        
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

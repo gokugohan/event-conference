@@ -1,0 +1,75 @@
+﻿@model EventConference.Web.Models.Session.SessionViewModel
+
+@{
+    ViewData["Title"] = "Session Details";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Html.DisplayFor(model => model.Title) Details</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DayNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DayNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Abstract)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Abstract)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StartTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EndTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Duration)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Speaker)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Speaker.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+        </dl>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="card-link">Edit</a> |
+        <a asp-action="Index" class="card-link">Back to List</a>
+    </div>
+    
+</div>
+<div>
+    
+</div>

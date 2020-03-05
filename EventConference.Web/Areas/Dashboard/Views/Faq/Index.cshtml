@@ -1,0 +1,68 @@
+﻿@model IEnumerable<EventConference.Entities.Models.Faq>
+@{
+    ViewData["Title"] = "Frequently ask question";
+}
+
+<div class="row">
+    <div class="col s12">
+        <table id="table-faqs" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+            </tfoot>
+        </table>
+        <ul class="collapsible categories-collapsible">
+
+            @foreach (var item in Model)
+            {
+            <li>
+                <div class="collapsible-header">
+                    Q: @Html.DisplayFor(modelItem => item.Question) <i class="material-icons">
+                        keyboard_arrow_right
+                    </i>
+                </div>
+                <div class="collapsible-body">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Answer)
+                    </p>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves waves-effect" asp-area="dashboard" asp-controller="Faq" asp-action="Add">
+        <i class="large material-icons">add</i>
+    </a>
+</div>
+
+@section scripts{ 
+<script>
+    $(document).ready(function() {
+        $('#table-faqs').DataTable( {
+            "ajax": "https://localhost:44369/api/faq",
+            "columns": [
+                { "data": "Id" },
+                { "data": "Question" },
+                { "data": "Answer" },
+            ]
+        } );
+    } );
+</script>
+}

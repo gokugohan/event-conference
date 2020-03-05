@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventConference.Contracts\EventConference.Contracts.csproj" />
+    <ProjectReference Include="..\EventConference.Entities\EventConference.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

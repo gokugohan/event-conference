@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />*@
+    <link href="~/materialize/css/materialize.min.css" rel="stylesheet" />
+    @*<link href="https://cdn.shopify.com/s/files/1/1775/8583/t/1/assets/gallery-materialize.min.opt.css" rel="stylesheet" />*@
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet" />
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/lib/venobox/venobox.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper container">
+                <a class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    @Html.Raw(Model.Settings["site_name"]) <i class="material-icons">map</i>
+                </a>
+                <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#intro" class="jump-anim">Home</a></li>
+                    <li><a href="#about" class="jump-anim">About</a></li>
+                    <li><a href="#speakers" class="jump-anim">Speakers</a></li>
+                    <li><a href="#schedule" class="jump-anim">Schedule</a></li>
+                    <li><a href="#venue" class="jump-anim">Venue</a></li>
+                    <li><a href="#gallery" class="jump-anim">Gallery</a></li>
+                    <li><a href="#supporters" class="jump-anim">Sponsors</a></li>
+                    <li><a href="#volunteer" class="jump-anim">Volunteer</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-nav">
+            <li><a href="#intro" class="jump-anim">Home</a></li>
+            <li><a href="#about" class="jump-anim">About</a></li>
+            <li><a href="#speakers" class="jump-anim">Speakers</a></li>
+            <li><a href="#schedule" class="jump-anim">Schedule</a></li>
+            <li><a href="#venue" class="jump-anim">Venue</a></li>
+            <li><a href="#gallery" class="jump-anim">Gallery</a></li>
+            <li><a href="#supporters" class="jump-anim">Sponsors</a></li>
+            <li><a href="#volunteer" class="jump-anim">Volunteer</a></li>
+        </ul>
+
+    </div>
+
+    <main id="main" role="main">
+        @RenderBody()
+    </main>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large waves-effect waves-light red" href="#main">
+            <i class="large material-icons">keyboard_arrow_up</i>
+        </a>
+    </div>
+
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">@Html.Raw(Model.Settings["site_name"])</h5>
+                    <p class="grey-text text-lighten-4">@Html.Raw(Model.Settings["footer_description"])</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><i class="fa fa-angle-right"></i> <a class="grey-text text-lighten-3" href="#intro">Home</a></li>
+                        <li><i class="fa fa-angle-right"></i> <a class="grey-text text-lighten-3" asp-area="" asp-controller="Home" asp-action="AboutUs">About us</a></li>
+                        <li><i class="fa fa-angle-right"></i> <a class="grey-text text-lighten-3" asp-area="" asp-controller="Home" asp-action="Services">Services</a></li>
+                        <li><i class="fa fa-angle-right"></i> <a class="grey-text text-lighten-3" asp-area="" asp-controller="Home" asp-action="TermOfService">Terms of service</a></li>
+                        <li><i class="fa fa-angle-right"></i> <a class="grey-text text-lighten-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy policy</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5>Contact Us</h5>
+                    <p>
+                        @Html.Raw(Model.Settings["contact_address"])<br>
+                        <strong>Phone:</strong> @Html.Raw(Model.Settings["contact_phone"])<br>
+                        <strong>Email:</strong> @Html.Raw(Model.Settings["contact_email"])<br>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © @DateTime.Now.Year Copyright
+                <div class="social-links right">
+                    <a asp-area="dashboard" asp-controller="Home" asp-action="Index" class="grey-text text-lighten-4" title="Dashboard"><i class="fa fa-dashboard"></i></a>
+                    <a href="@Html.Raw(Model.Settings["twitter"])" class="grey-text text-lighten-4" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="@Html.Raw(Model.Settings["facebook"])" class="grey-text text-lighten-4" title="Facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="@Html.Raw(Model.Settings["instagram"])" class="grey-text text-lighten-4" title="Instagram"><i class="fa fa-instagram"></i></a>
+                    <a href="@Html.Raw(Model.Settings["linkedin"])" class="grey-text text-lighten-4" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/materialize/js/materialize.min.js"></script>
+    <script src="~/lib/wow/wow.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/venobox/venobox.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

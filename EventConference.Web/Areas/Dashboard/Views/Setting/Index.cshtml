@@ -1,0 +1,151 @@
+﻿@model IEnumerable<EventConference.Entities.Models.SettingGroupModel>
+@{
+    ViewData["Title"] = "Setting";
+    var active = "";
+}
+<h1 class="mt-4">@ViewData["Title"]</h1>
+<section class="tabs session-tabs">
+    <p class="caption mb-0">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <br />
+    <nav>
+        <div class="nav nav-tabs nav-fill" id="pills-tab" role="tablist" aria-orientation="vertical">
+            @foreach (var item in Model)
+            {
+                var link = $"#item{item.Group}";
+                active = item.Group == "Site" ? "active" : "";
+                <a href="@link" class="nav-link @active col-sm" data-toggle="tab" role="tab" aria-controls="@link">@Html.Raw(item.Group)</a>
+            }
+        </div>
+    </nav>
+    <form asp-action="Edit">
+        <div class="tab-content mt-4">
+
+            @foreach (var item in Model)
+            {
+                var id = $"item{item.Group}";
+                active = item.Group == "Site" ? "show active" : "";
+                <div id="@id" class="tab-pane fade @active" role="tabpanel">
+                    @foreach (var setting in item.Settings)
+                    {
+                        <div class="form-group">
+                            <label for="@setting.Key" class="control-label">@setting.Name</label>
+                            @switch (setting.Type)
+                            {
+                                case "text":
+                                    <label for="@setting.Key">@setting.Name</label>
+                                    <input type="text" id="@setting.Key" name="@setting.Key" class="form-control" value="@setting.Value" />
+                                    break;
+                                case "url":
+                                    <label for="@setting.Key">@setting.Name</label>
+                                    <input type="url" id="@setting.Key" name="@setting.Key" class="form-control" value="@setting.Value" />
+                                    break;
+                                case "textarea":
+                                    <label for="@setting.Key">@setting.Name</label>
+                                    <textarea id="@setting.Key" name="@setting.Key" class="form-control" rows="10" cols="5">@setting.Value</textarea>
+                                    break;
+                                case "email":
+                                    <label for="@setting.Key">@setting.Name</label>
+                                    <input type="email" id="@setting.Key" name="@setting.Key" class="form-control" value="@setting.Value" />
+                                    break;
+                                case "file":
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupFileAddon01">Select file</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="site_header_bg">
+                                            <label class="custom-file-label" for="site_header_bg">Choose file</label>
+                                        </div>
+                                    </div>
+                                    break;
+                            }
+                        </div>
+                    }
+
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary float-right" />
+            </div>
+        </div>
+    </form>
+</section>
+
+
+@*<div class="card mt-4 mb-4">
+        <div class="card-body">
+            <p class="mb-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="settings-group">
+                <ul class="tabs custom-tab">
+                    @foreach (var item in Model)
+                    {
+                        var link = $"#item{item.Group}";
+                        <li class="tab col s3"><a href="@link" class="waves-effect waves-light modal-trigger gradient-45deg-light-blue-cyan gradient-shadow">@Html.Raw(item.Group)</a></li>
+                    }
+                </ul>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        var id = $"item{item.Group}";
+
+                        <div id="@id" class="col s12">
+                            <div class="settings-group">
+                                <ul class="collapsible setting">
+                                    @foreach (var setting in item.Settings)
+                                    {
+                                        <li>
+                                            <div class="collapsible-header">
+                                                <span>@setting.Name</span>
+                                                <i class="material-icons caret right">keyboard_arrow_right</i>
+                                            </div>
+                                            <div class="collapsible-body">
+                                                <div class="input-field">
+                                                    @switch (setting.Type)
+                                                    {
+                                                        case "text":
+                                                            <input type="text" id="@setting.Key" name="@setting.Key" class="validate" value="@setting.Value" />
+                                                            <label for="@setting.Key">@setting.Name</label>
+                                                            break;
+                                                        case "url":
+                                                            <input type="url" id="@setting.Key" name="@setting.Key" class="validate" value="@setting.Value" />
+                                                            <label for="@setting.Key">@setting.Name</label>
+                                                            break;
+                                                        case "textarea":
+                                                            <textarea id="@setting.Key" name="@setting.Key" class="materialize-textarea" data-length="1000">@setting.Value</textarea>
+                                                            <label for="@setting.Key">@setting.Name</label>
+                                                            break;
+                                                        case "email":
+                                                            <input type="email" id="@setting.Key" name="@setting.Key" class="validate" value="@setting.Value" />
+                                                            <label for="@setting.Key">@setting.Name</label>
+                                                            break;
+                                                        case "file":
+                                                            <div class="btn">
+                                                                <span>File</span>
+                                                                <input type="file">
+                                                            </div>
+                                                            <div class="file-path-wrapper">
+                                                                <input class="file-path validate" type="text">
+                                                            </div>
+                                                            break;
+                                                    }
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>*@
+

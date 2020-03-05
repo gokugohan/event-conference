@@ -1,0 +1,378 @@
+﻿@using EventConference.Web.Models.Session
+@{
+    ViewData["Title"] = "Home Page";
+    var speakers = ViewData["speakers"];
+}
+@if (Model.Event.HeaderBanner != null)
+{
+    @section css{
+        <style>
+            #intro {
+                background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)), url('@Model.Event.HeaderBanner');
+                background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)), url('@Model.Event.HeaderBanner');
+            }
+        </style>
+    }
+
+}
+
+<div id="intro">
+    <section class="hero container">
+        <div class="row">
+            <div class="col s12">
+                <h1 class="full  ">
+                    @Html.Raw(Model.Event.Title)
+                </h1>
+            </div>
+            <div class="col s12 m6">
+                <p class="">
+                    @*@Html.Raw(Model.Settings["event_subtitle"])
+                <br><br>*@
+
+                    Join us in @Html.Raw(Model.Event.Venue) in @Html.Raw(Model.Event.Date.ToString("dd-MMMM-yyyy")).
+                    <hr />
+
+                </p>
+            </div>
+            <div class="col s12 m6">
+                <a href="@Model.Event.TrailerVideoLink" class="venobox about-btn hoverable z-depth-5 right">Watch The Event Trailer</a>
+            </div>
+        </div>
+        <span class="hero-bottom-text">Organized by @Model.Event.OrganizedBy 
+        @if (Model.Event.EndorsedBy != null)
+        {
+            <span>Endorsed by @Model.Event.EndorsedBy</span>
+        }</span>
+    </section>
+</div>
+
+@*<div id="intro">
+        <div class="valign-wrapper no-valign-wrapper-on-mobile">
+            <div class="col s12">
+                    <div class="container-wide intro-text">
+                    <h1>@html.raw(model.settings["title"])</h1>
+                    <p>@html.raw(model.settings["subtitle"])</p>
+                    <a href="https://www.youtube.com/watch?v=jddaplaoz7q" class="venobox play-btn mb-4 vbox-item" data-vbtype="video" data-autoplay="true"></a>
+                    <a href="#about" class="about-btn hoverable z-depth-5">about the event</a>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<section id="about" class="z-depth-2">
+    <div class="container">
+        <div class="row">
+            <div class="about-content-left col l8">
+                <h2>About The Event</h2>
+                <p>@Html.Raw(Model.Event.About)</p>
+            </div>
+            <div class="about-content-right col l4 no-right-padding valign">
+                <h3>Where</h3>
+                <p>@Html.Raw(Model.Event.Venue)</p>
+
+                <h3>When</h3>
+                <p>@Html.Raw(Model.Event.Date.ToString("dd-MMMM-yyyy"))</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="speakers" class="wow fadeInUp">
+    <div class="container">
+        <div class="section-header">
+            <h2>Event Speakers</h2>
+            <p>Here are some of our speakers</p>
+        </div>
+
+        <div class="row">
+            @if (Model.Event.Speakers.Count > 0)
+            {
+                @foreach (var speaker in Model.Event.Speakers)
+                {
+                    <div class="col l4 m6 wow bounceInUp" data-wow-duration="1.4s">
+                        <div class="speaker">
+                            @if (speaker.Avatar == null)
+                            {
+                                <img src="/img/goku.png" alt="@speaker.Name" class="responsive-img">
+                            }
+                            else
+                            {
+                                <img src="@speaker.Avatar" alt="@speaker.Name" class="responsive-img">
+                            }
+                            <div class="details">
+                                <h3><a href="#@speaker.Id" class="modal-trigger">@speaker.Name</a></h3>
+                                <p>Quas alias incidunt</p>
+                            </div>
+                        </div>
+
+                        <div id="@speaker.Id" class="modal">
+                            <div class="modal-content">
+                                <h4>@speaker.Name</h4>
+                                <p>@speaker.FullDescription</p>
+                                <p>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+        <div class="center">
+            <span class="red-text">No sponsors associated with this event</span>
+        </div>
+            }
+
+
+
+        </div>
+    </div>
+</section>
+
+<section id="schedule" class="section-with-bg">
+    <div class="container wow fadeInUp">
+        <div class="section-header">
+            <h2>Event Sessions</h2>
+            <p>Here is our event sessions</p>
+        </div>
+        @if (Model.SessionDays.Count > 0)
+        {
+            <ul class="tabs">
+
+                @foreach (var day in Model.SessionDays)
+                {
+                    var link = $"#day{day.DayNumber}";
+                    <li class="tab col s3"><a href="@link" class="waves-effect waves-light modal-trigger">Day @day.DayNumber</a></li>
+                }
+
+            </ul>
+
+            <h3 class="sub-heading">
+                Voluptatem nulla veniam soluta et corrupti consequatur neque eveniet officia. Eius
+                necessitatibus voluptatem quis labore perspiciatis quia.
+            </h3>
+
+            <div class="row wow bounceInUp">
+                @foreach (var day in Model.SessionDays)
+                {
+                    var id = $"day{day.DayNumber}";
+
+                    <div id="@id" class="col s12">
+
+                        @foreach (var session in day.Sessions)
+                        {
+                            <div class="row schedule-item">
+                                <div class="col m2"><time> @string.Format("{0:hh:mm tt}", session.StartTime)</time></div>
+                                <div class="col m10">
+                                    @if (session.Speaker != null)
+                                    {
+                                        <div class="speaker">
+                                            <img src="~/img/goku_1.png" title="@session.Speaker.Name" />
+                                        </div>
+                                    }
+                                    <h4>@session.Title </h4>
+                                    <small>@session.Speaker?.Name</small>
+                                    <p>@session.Abstract</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+    <div class="center">
+        <span class="red-text">No sponsors associated with this event</span>
+    </div>
+        }
+
+
+    </div>
+</section>
+
+
+<section id="venue" class="wow fadeInUp">
+    <div class="container-wide">
+        <div class="section-header">
+            <h2>Event Venue</h2>
+            <p>Event venue location info and gallery</p>
+        </div>
+    </div>
+    @*@foreach (var venue in Model.Venues)
+        {
+            <div class="row">
+                <div class="col l6 s12 venue-map">
+                    <iframe src="https://maps.google.com/maps?q=@Model.Event.Latitude,@Model.Event.Longitude&hl=en&z=14&amp;output=embed" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+                <div class="col l6 s12 venue-info">
+                    <div class="venue-info-container">
+                        <h3>@Model.Event.Venue</h3>
+                        <p>@Html.Raw(Model.Event.Description)</p>
+                    </div>
+                </div>
+            </div>
+
+        }*@
+
+    <div class="row">
+        <div class="col l6 s12 venue-map">
+            <iframe src="https://maps.google.com/maps?q=@Model.Event.Latitude,@Model.Event.Longitude&hl=en&z=14&amp;output=embed" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+        <div class="col l6 s12 venue-info">
+            <div class="venue-info-container">
+                <h3>@Model.Event.Venue</h3>
+                <p>@Html.Raw(Model.Event.Description)</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="gallery" class="wow fadeInUp">
+    <div class="container">
+        <div class="section-header">
+            <h2>Gallery</h2>
+            <p>Check our gallery from the recent events</p>
+        </div>
+        <div class="owl-carousel gallery-carousel">
+            <a class="venobox" href="~/img/photo1.png" data-gall="gallery"><img src="~/img/photo1.png" alt="image alt" class="responsive-img" /></a>
+            <a class="venobox" href="~/img/photo2.png" data-gall="gallery"><img src="~/img/photo2.png" alt="image alt" class="responsive-img" /></a>
+            <a class="venobox" href="~/img/photo3.jpg" data-gall="gallery"><img src="~/img/photo3.jpg" alt="image alt" class="responsive-img" /></a>
+            <a class="venobox" href="~/img/photo4.jpg" data-gall="gallery"><img src="~/img/photo4.jpg" alt="image alt" class="responsive-img" /></a>
+        </div>
+    </div>
+</section>
+
+<section id="supporters" class="section-with-bg wow fadeInUp">
+    <div class="container">
+        <div class="section-header">
+            <h2>Sponsors</h2>
+        </div>
+
+        <div class="row">
+            @if (Model.Event.Sponsors.Count > 0)
+            {
+                @foreach (var item in Model.Event.Sponsors)
+                {
+                    <div class="col l2 m4 s6 supporters-item">
+                        <a href="@item.Link" alt="@item.Name" target="_blank" rel="noopener">
+                            <img src="@item.ImagePath" alt="@item.Name">
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col s12">
+                    <div class="center">
+                        <span class="red-text">No sponsors associated with this event</span>
+                    </div>
+                </div>
+            }
+            @*<div class="col l2 m4 s6 supporters-item">
+                <a href="https://kredittkrt.no/" alt="kredittkort" target="_blank" rel="noopener">
+                    <img src="~/img/photo1.png" alt="kredittkort">
+                </a>
+            </div>
+            <div class="col l2 m4 s6 supporters-item">
+                <a href="https://www.santabarbarachocolate.com/" alt="Santa Barbara Chocolate" target="_blank" rel="noopener">
+                    <img src="~/img/photo1.png" alt="Santa Barbara Chocolate">
+                </a>
+            </div>
+            <div class="col l2 m4 s6 supporters-item">
+                <a href="https://netqualified.com/" alt="Notification widget for website engagement and conversion" target="_blank" rel="noopener">
+                    <img src="~/img/photo1.png" alt="Notification widget for website engagement and conversion">
+                </a>
+            </div>
+            <div class="col l2 m4 s6 supporters-item">
+                <a href="https://gaggle.email/" target="_blank" rel="noopener">
+                    <img src="~/img/photo1.png" alt="Gaggle Mail">
+                </a>
+            </div>
+            <div class="col l2 m4 s6 supporters-item">
+                <a href="https://www.firesticktricks.com/" alt="Fire Stick Tricks" target="_blank" rel="noopener">
+                    <img src="~/img/photo1.png" alt="Fire Stick Tricks">
+                </a>
+            </div>*@
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<section id="faq" class="wow fadeInUp">
+
+    <div class="container">
+        <div class="section-header">
+            <h2>F.A.Q </h2>
+        </div>
+
+        <ul class="collapsible popout">
+            @foreach (var faq in Model.Faqs)
+            {
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">expand_more</i>@faq.Question</div>
+                    <div class="collapsible-body"><span>@faq.Answer</span></div>
+                </li>
+            }
+
+        </ul>
+
+    </div>
+
+</section>
+
+<section id="volunteer" class="wow fadeInUp">
+    <div class="container">
+        <div class="section-header">
+            <h2>Apply to volunteer at @Html.Raw(Model.Settings["site_name"])</h2>
+            <p>Rerum numquam illum recusandae quia mollitia consequatur.</p>
+        </div>
+
+        <div class="center" style="margin-top: 15px;">
+            <a asp-area="" asp-controller="Volunteer" asp-action="Index" class="volunteer-btn">Volunteers</a>
+        </div>
+
+        @*<form method="POST" asp-route="Subscribe">
+                <div class="row">
+                    <div class="input-field col s12 m8">
+                        <input type="text" class="validate" name="Email" placeholder="Enter your email" autocomplete="off">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </form>*@
+
+    </div>
+</section>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}

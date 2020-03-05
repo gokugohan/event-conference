@@ -1,0 +1,215 @@
+﻿
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="ThemeSelect">
+    <title>@ViewData["Title"] | Admin</title>
+
+    <!-- Material Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" rel="stylesheet" />
+    <!-- BEGIN VENDOR CSS-->
+    <link href="~/materialize/admin/css/materialize-admin.css" rel="stylesheet" />
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN THEME  CSS-->
+    <!-- END THEME  CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link href="~/materialize/admin/css/materialize.min.css" rel="stylesheet" />
+    <link href="~/materialize/admin/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="~/materialize/admin/css/data-tables.css" rel="stylesheet" />
+    <link href="~/materialize/admin/css/style.min.css" rel="stylesheet" />
+    <link href="~/css/admin.css" rel="stylesheet" />
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <!-- END Custom CSS-->
+</head>
+
+<body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu preload-transitions 2-columns">
+    <!--
+    //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START HEADER -->
+    <header class="page-topbar" id="header">
+        <div class="navbar navbar-fixed">
+            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
+                <div class="nav-wrapper">
+                    <ul class="navbar-list right">
+                        <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen" href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
+                        <li class="hide-on-large-only search-input-wrapper"><a class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i class="material-icons">search</i></a></li>
+                        <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">5</small></i></a></li>
+                        <li>
+                            <a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown">
+                                <span class="avatar-status avatar-online">
+                                    <img src="~/img/goku.png" alt="avatar"><i></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- notifications-dropdown-->
+                    <ul class="dropdown-content" id="notifications-dropdown">
+                        <li>
+                            <h6>NOTIFICATIONS<span class="new badge">5</span></h6>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new order has been placed!</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
+                        </li>
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
+                        </li>
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
+                        </li>
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
+                        </li>
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
+                        </li>
+                    </ul>
+                    <!-- profile-dropdown-->
+                    <ul class="dropdown-content" id="profile-dropdown">
+                        <li><a class="grey-text text-darken-1" href="#!"><i class="material-icons">person_outline</i> Profile</a></li>
+                        <li><a class="grey-text text-darken-1" href="#!"><i class="material-icons">chat_bubble_outline</i> Chat</a></li>
+                        <li><a class="grey-text text-darken-1" asp-area="dashboard" asp-controller="Faq" asp-action="Index"><i class="material-icons">help_outline</i> Help</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="btn-flat grey-text text-darken-1">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
+        <div class="brand-sidebar">
+            <h1 class="logo-wrapper">
+                <a class="brand-logo darken-1" asp-area="dashboard" asp-controller="Home" asp-action="Index">
+                    <img class="hide-on-med-and-down" src="~/img/goku.png" alt="materialize logo" />
+                    <img class="show-on-medium-and-down hide-on-med-and-up" src="~/img/goku.png" alt="materialize logo" /><span class="logo-text hide-on-med-and-down">Dashboard</span>
+                </a>
+                @*<a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a>*@
+            </h1>
+        </div>
+        <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
+
+            <li class="bold"><a href="/dashboard" class="waves-effect waves-cyan">Dashboard<i class="material-icons">dashboard</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Event" asp-action="Index" class="waves-effect waves-cyan">Event<i class="material-icons">event</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Session" asp-action="Index" class="waves-effect waves-cyan">Sessions<i class="material-icons">room_service</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Venue" asp-action="Index" class="waves-effect waves-cyan">Venues<i class="material-icons">place</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Speaker" asp-action="Index" class="waves-effect waves-cyan">Speakers<i class="material-icons">people</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Participant" asp-action="Index" class="waves-effect waves-cyan">Participants<i class="material-icons">group</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Galleries" asp-action="Index" class="waves-effect waves-cyan">Galleries<i class="material-icons">photo_album</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Sponsor" asp-action="Index" class="waves-effect waves-cyan">Sponsors<i class="material-icons">chat</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Faq" asp-action="Index" class="waves-effect waves-cyan">Faqs<i class="material-icons">question_answer</i></a></li>
+            <li class="bold"><a asp-area="dashboard" asp-controller="Country" asp-action="Index" class="waves-effect waves-cyan">Countries<i class="material-icons">nature_people</i></a></li>
+
+
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">photo_filter</i><span class="menu-title">Others</span></a>
+                <div class="collapsible-body">
+                    <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                        <li>
+                            <a asp-area="dashboard" asp-controller="Setting" asp-action="Index"><i class="material-icons">setting</i><span>Setting</span></a>
+                        </li>
+                        <li><a href="#!" class="waves-effect">Footer Link<i class="material-icons">fiber_manual_record</i></a></li>
+                        <li><a href="#!" class="waves-effect">Theme setting<i class="material-icons">fiber_manual_record</i></a></li>
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+        <div class="navigation-background"></div>
+        <a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#"
+           data-target="slide-out">
+            <i class="material-icons">menu</i>
+        </a>
+    </aside>
+
+
+    <!--
+    //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START MAIN -->
+    <div id="main">
+        <!-- START WRAPPER -->
+        <div class="row">
+            <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+            <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
+                <!-- Search for small screen-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title mt-0 mb-0"><span>@ViewData["Title"]</span></h5>
+                            @*<ol class="breadcrumbs mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Table</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    DataTable
+                                </li>
+                            </ol>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+
+            <!-- END CONTENT -->
+            <!--
+            //////////////////////////////////////////////////////////////////////////// -->
+        </div>
+        <!-- END WRAPPER -->
+    </div>
+    <!-- END MAIN -->
+    <!--
+      //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START FOOTER -->
+    <footer class="page-footer footer footer-static footer-dark gradient-45deg-indigo-purple gradient-shadow navbar-border navbar-shadow">
+        <div class="footer-copyright">
+            <div class="container">
+                <span>© @DateTime.Now.Year <a href="http://chebre.net" target="_blank">CHEBRE.NET</a> All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- END FOOTER -->
+    <!-- ================================================
+      Scripts
+      ================================================ -->
+    <!-- BEGIN VENDOR JS-->
+    <script src="~/materialize/admin/js/materialize-admin.js"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN THEME  JS-->
+    <script src="~/materialize/admin/js/plugins.min.js"></script>
+    <script src="~/materialize/admin/js/search.min.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
+    <script src="~/materialize/admin/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/dashboard.js"></script>
+    <!-- END THEME  JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <!-- END PAGE LEVEL JS-->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

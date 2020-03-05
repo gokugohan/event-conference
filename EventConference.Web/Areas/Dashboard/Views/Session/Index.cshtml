@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EventConference.Web.Models.Session.SessionByDayViewModel>
+@{
+    ViewData["Title"] = "Session";
+    var active = "";
+}
+    <h1 class="mt-4">@ViewData["Title"] <a asp-area="dashboard" asp-controller="Session" asp-action="Create" class="btn btn-primary float-right"><span class="fa fa-plus-circle"></span></a></h1>
+    <section class="tabs session-tabs">
+        <p class="caption mb-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <br />
+        <nav>
+            <div class="nav nav-tabs nav-fill" id="pills-tab" role="tablist" aria-orientation="vertical">
+                @foreach (var day in Model)
+                {
+                    var link = $"#day{day.DayNumber}";
+                    active = day.DayNumber == 1 ? "active" : "";
+                    <a href="@link" class="nav-link @active col-sm" data-toggle="tab" role="tab" aria-controls="@link">Day @day.DayNumber</a>
+                }
+            </div>
+
+        </nav>
+        <div class="tab-content mt-4">
+            @foreach (var day in Model)
+            {
+                var id = $"day{day.DayNumber}";
+                active = day.DayNumber == 1 ? "show active" : "";
+                <div id="@id" class="tab-pane fade @active" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Duration</th>
+                                    <th>Speaker</th>
+                                    <th>Title</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var session in day.Sessions)
+                                {
+                                    <tr>
+                                        <td>@string.Format("{0:hh:mm tt}", session.StartTime) - @string.Format("{0:hh:mm tt}", session.EndTime)</td>
+                                        <td>@session.Duration.ToString(@"hh\:mm")</td>
+                                        <td>
+                                            <div class="speaker">
+                                                @if (session.Speaker != null)
+                                                {
+                                                    <h5>@session.Speaker.Name</h5>
+                                                }
+                                                else
+                                                {
+                                                    <h5>No speaker yet!</h5>
+                                                }
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h6>@session.Title </h6>
+                                            @*<p>@session.Abstract</p>*@
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Edit" asp-route-id="@session.Id" class="btn btn-sm btn-warning"><span class="fa fa-edit"></span></a>
+                                                <a asp-action="Details" asp-route-id="@session.Id" class="btn btn-sm btn-info"><span class="fa fa-eye"></span></a>
+                                                <a asp-action="Delete" asp-route-id="@session.Id" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </section>

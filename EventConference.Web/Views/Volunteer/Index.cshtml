@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewData["Title"] = "Volunteer";
+}
+
+
+@if (Model.Event.HeaderBanner != null)
+{
+    @section css{
+        <style>
+            #intro {
+                background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)), url('@Model.Event.HeaderBanner');
+                background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)), url('@Model.Event.HeaderBanner');
+            }
+        </style>
+    }
+
+}
+
+<div id="intro">
+    <section class="hero container">
+        <div class="row">
+            <div class="col s12">
+                <h1 class="full  ">
+                    @Html.Raw(Model.Event.Title)
+                </h1>
+            </div>
+            <div class="col s12 m6">
+                <p class="">
+                    @*@Html.Raw(Model.Settings["event_subtitle"])
+                        <br><br>*@
+
+                    Join us in @Html.Raw(Model.Event.Venue) in @Html.Raw(Model.Event.Date.ToString("dd-MMMM-yyyy")).
+                    <hr />
+
+                </p>
+            </div>
+            <div class="col s12 m6">
+                @*<a href="@Model.Event.TrailerVideoLink" class="venobox about-btn hoverable z-depth-5 right">Watch The Event Trailer</a>*@
+                <a href="#!" id="btn-view-form" class="about-btn hoverable z-depth-5 right">Register Now</a>
+                
+            </div>
+        </div>
+        <span class="hero-bottom-text">
+            Organized by @Model.Event.OrganizedBy
+            @if (Model.Event.EndorsedBy != null)
+            {
+                <span>Endorsed by @Model.Event.EndorsedBy</span>
+            }
+        </span>
+    </section>
+</div>
+
+<section class="iconText-parent" id="iconText-3">
+    <div class="container">
+        <div class="row">
+            <div class="iconText-block col s12 m6 hoverable">
+                <div class="image-block"><span class="block-line"></span></div>
+                <span>
+                    <h3>Gain valuable experience</h3>
+                    <div>
+                        Volunteering at Web Summit is an opportunity to dip your toes into roles that you might not normally get to experience. We can help you find a volunteering role that interests you - whether it's gathering quotes as a stage reporter, meeting and greeting our attendees at Night Summit, or helping our stage managers run the show.
+                    </div>
+                </span>
+            </div>
+            <div class="iconText-block col s12 m6 hoverable"><div class="image-block"><span class="block-line" ></span>
+                    </div>
+            <span><h3>Meet new people</h3>
+                <div>Our volunteers always say that one of the things that keeps them coming back to volunteer with us year after year is the people they meet. Join our global community of volunteers and make connections you'll keep with you long after Web Summit ends.
+                    </div>
+             </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="iconText-block col s12 m6 hoverable">
+                <div class="image-block">
+                    <span class="block-line"></span>
+                </div><span>
+                    <h3>Experience Web Summit during your time off</h3>
+                    <div>As a volunteer, you'll get access to the event during your time off. Check out talks from our top speakers, wander the conference floor or let off some steam at Night Summit.</div>
+                </span>
+            </div>
+            <div class="iconText-block col s12 m6 hoverable">
+                <div class="image-block"><span class="block-line"></span></div>
+                <span>
+                    <h3>Behind the scenes</h3>
+                    <div>
+                        Learn more about how an event the size of Web Summit runs by meeting the people that make it happen. You'll get a unique insight into the buzz of gathering of 70,000 of tech's top speakers, journalists, investors, startups and attendees together.
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div id="modal-view-form" class="modal">
+    <form method="post" asp-action="Register">
+        <div class="modal-content">
+            <h4>Volunteer and attend @Html.Raw(Model.Settings["site_name"]) for free</h4>
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input type="text" class="validate" id="firstName" name="FirstName" />
+                            <label for="firstName">First Name</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input type="text" class="validate" id="lastName" name="LastName" />
+                            <label for="lastName">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <select id="countryOfResidence" name="Country">
+                                <option value="" disabled selected>Country of residence</option>
+                                <option value="1">Country 1</option>
+                                <option value="2">Country 2</option>
+                                <option value="3">Country 3</option>
+                            </select>
+                            <label for="countryOfResidence">Country of residence</label>
+                        </div>
+                        <div class="col s12 m6">
+                            <label>Gender</label>
+                            <p>
+                                <label class="left">
+                                    <input name="Gender" type="radio" value="Male" />
+                                    <span>Male</span>
+                                </label>
+
+                                <label class="right">
+                                    <input name="Gender" type="radio" value="Female" />
+                                    <span>Female</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <select type="select" id="age-range" name="AgeRange" required="">
+                                <option value="" disabled="" selected="">Age</option>
+                                <option value="18-24">18-24</option>
+                                <option value="25-30">25-30</option>
+                                <option value="31-35">31-35</option>
+                                <option value="36-40">36-40</option>
+                                <option value="41-45">41-45</option>
+                                <option value="46-50">46-50</option>
+                                <option value="51-60">51-60</option>
+                                <option value="60+">60+</option>
+                            </select>
+                            <label for="age-range">Age</label>
+                        </div>
+                        <div class="col s12 m6">
+                            <label>Have you volunteered with us before?*</label>
+                            <p>
+                                <label class="left">
+                                    <input name="HasVolunteered" type="radio" value="Yes" />
+                                    <span>Yes</span>
+                                </label>
+
+                                <label class="right">
+                                    <input name="HasVolunteered" type="radio" value="No" />
+                                    <span>No</span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="col s12">
+                            <label>
+                                <input type="checkbox" name="AgreeTermAndCondigion" />
+                                <span>Agree with @Html.Raw(Model.Settings["site_name"]) term and conditions</span>
+                            </label>
+                            <br />
+                            <div class="disclaimer">
+                                <a href="#modal-term-and-condition" class="waves-effect waves-light modal-trigger">Clicking this button indicates agreement to our volunteer terms and conditions.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="waves-effect waves-green btn-flat">Submit</button>
+            <button type="reset" class="waves-effect waves-green btn-flat">Reset</button>
+        </div>
+    </form>
+</div>
+
+<div id="modal-term-and-condition" class="modal">
+    <div class="modal-content">
+        <h4>Term and conditions</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#btn-view-form").on("click", function () {
+                $("#modal-view-form").modal("open");
+            });
+        })
+    </script>
+}
