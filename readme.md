@@ -4,7 +4,7 @@
 
 Projetu ne hanesan passatempo hodi atualiza kunhesimento iha área .Net Framework ba .Net Core. Atualmente .Net Core iha ninia versaun mais recente mak .Net Core 3.1
 
-Projeto simples ne tenta atu simula halo registos ba evento ruma, tal como conferencias ou seminários
+Projeto simples ne tenta atu simula registos ba evento ruma, tal como conferencias ou seminários
 
 - Web Template nebe usa maka ida nebe iha página ida ne https://bootstrapmade.com/demo/TheEvent/
 
