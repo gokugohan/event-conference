@@ -10,6 +10,6 @@ Projeto simples ne tenta atu simula halo registos ba evento ruma, tal como confe
 
 
 ## Requisitos
-Basta iha Visual Studio 2019 e sqlserver express ou bele mos mysql server hodi executa projeto ne.
+Basta iha Visual Studio 2019 (mai ho kedas .net 3.1) e sqlserver express ou bele mos mysql server hodi executa projeto ne.
 
 NB: Precisa atualiza ficheiro appsetings.json e nlog.config tuir idak2 nia connectionstring e "log file path"
