@@ -13,3 +13,11 @@ Projeto simples ne tenta atu simula registos ba evento ruma, tal como conferenci
 Basta iha Visual Studio 2019 (mai ho kedas .net 3.1) e sqlserver express ou bele mos mysql server hodi executa projeto ne.
 
 NB: Precisa atualiza ficheiro appsetings.json e nlog.config tuir idak2 nia connectionstring e "log file path"
+
+## Execução
+Iha Package Manager Console
+-- Executa comando "Update-Database -Context ApplicationDbContext" hodi cria tabelas associados ba Asp.Net Core Identity. 
+Certifica katak projeto EventConference.Web selecionado
+-- Seleciona projeto EventConference.Entities iha Package Manager Console e executa comando "Update-Database -Context RepositoryContext" hodi cria tabelas associadas ba evento
+
+NB: Precisa melhoramento buat barak (devagar se vai ao longe)
